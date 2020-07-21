@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from "axios";
+import { navigate } from "@reach/router"
 
 const AddProduct = (props) => {
 
@@ -9,7 +10,7 @@ const AddProduct = (props) => {
 
     const formHandler = (e) => {
         e.preventDefault();
-        let numPrice = parseInt(price) * 100;
+        let numPrice = parseInt(price * 100);
         axios.post("http://localhost:8000/api/products", {
             title: title,
             price: numPrice,
@@ -20,6 +21,7 @@ const AddProduct = (props) => {
         setTitle("");
         setPrice("");
         setDesc("");
+        navigate("/");
     }
     const titleHandler = (e) => {
         setTitle(e.target.value);

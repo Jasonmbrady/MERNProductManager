@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
+import { Link } from "@reach/router";
 
-const AllProducts = () => {
-    const [products, setProducts] = useState([{
-        title: "",
-        price: 0,
-        desc: ""
-    }]);
+const AllProducts = ({ products, setProducts, deleteHandler }) => {
+
 
     useEffect(() => {
         axios.get("http://localhost:8000/api/products")
@@ -20,9 +17,9 @@ const AllProducts = () => {
                 products.map((product, idx) => {
                     return (
                         <div key={idx} style={{ display: "inline-block", margin: "25px" }}>
-                            <h3>{product.title}</h3>
+                            <h3><Link to={`/products/${product._id}`}>{product.title}</Link></h3>
                             <p>Price: ${product.price / 100}</p>
-                            <p>Description: {product.desc}</p>
+                            <button onClick={(e) => deleteHandler(product._id)} style={{ display: "block", margin: "auto" }}>Delete</button>
                         </div>
                     );
                 })
